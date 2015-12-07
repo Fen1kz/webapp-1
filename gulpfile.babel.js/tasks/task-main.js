@@ -3,23 +3,28 @@ export default function (gulp, $, config) {
     let globs = config.globs;
 
     gulp.task('glob', () =>
-        gulp.src(globs.src.style.vendor)
+        gulp.src([])
             .pipe($.tap((file) => console.log(file.path))));
 
-    gulp.task('build', ['copy', 'scripts:local']);
+    gulp.task('build', ['scripts:local', 'styles:local']);
 
-    gulp.task('dist', $.sequence('clean:all', 'build'));
+    gulp.task('dist', $.sequence('clean:all', ['copy', 'build', 'scripts', 'styles']));
 
-    gulp.task('liverelaod', function () {
-        $.livereload.listen(function (err) {
-            if (err) return console.log(err);
-        });
+    gulp.task('reload', () => {
+        $.livereload.changed();
     });
 
     gulp.task('watch', ['dist'], () => {
-        $.livereload.listen();
-        gulp.watch([globs.src.all], ['build']).on('change', function(){
-            $.livereload.changed();
+        $.livereload.listen(function (err) {
+            if (err) return console.log(err);
+        });
+        //gulp.watch(`${dirs.src}/**/*.js`, ['build', 'reload']);
+        $.watch(globs.src, {
+            readDelay: 200
+            , verbose: true
+        }, () => {
+            //$.sequence('build')();
+            $.sequence('build', 'reload')();
         });
     });
 }

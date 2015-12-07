@@ -8,4 +8,5 @@
 let gutil = require('gulp-util');
 
 module.exports = {
+    stringify: ['.html']
 };
