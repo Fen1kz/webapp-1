@@ -24,7 +24,7 @@ export default function (gulp, $, config) {
             , verbose: true
         }, () => {
             //$.sequence('build')();
-            $.sequence('build', 'reload')();
+            $.sequence(['copy:index', 'build'], 'reload')();
         });
     });
 }
