@@ -23,8 +23,3 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
 }]);
 
 require('./home/config.home')(app);
-
-// delete V
-require('./nekrasivo');
-console.log(TIPAGLOBALKA);
-console.log(TIPAGLOBALKA2);
