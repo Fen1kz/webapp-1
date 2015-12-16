@@ -46,7 +46,6 @@ export default function (gulp, $, config) {
             .pipe(gulp.dest(`${dirs.dist}/js`))
     });
 
-
     //let bundler = browserify(`${dirs.src}/js/app.js`, {
     let bundler = browserifyIncremental(`${dirs.src}/js/app.js`, _.assign({}, config.browserify, {
         paths: ['./src/js/']

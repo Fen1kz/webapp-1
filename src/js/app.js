@@ -1,5 +1,5 @@
-import angular from 'angular';
-import 'angular-ui-router';
+let angular = require('angular');
+require('angular-ui-router');
 //import 'angular-material';
 //import 'js-data';
 //import 'js-data-angular';
@@ -22,4 +22,9 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
     $urlRouterProvider.otherwise('/home');
 }]);
 
-require('./home/config.home');
+require('./home/config.home')(app);
+
+// delete V
+require('./nekrasivo');
+console.log(TIPAGLOBALKA);
+console.log(TIPAGLOBALKA2);
