@@ -22,23 +22,22 @@ export default function (gulp, $, config) {
     }, {});
 
     gulp.task('scripts:libs', () => {
-        let debug = false;
-
-        let node_modules = browserify({
-            debug: debug
-            , noParse: dependencies
-            , detectGlobals: false
-        })
+        let node_modules = browserify(_.assign(
+            {}
+            , config.browserify
+            , {
+                noParse: dependencies
+            }))
             .require(dependencies)
-            .transform({
-                global: true
-            }, 'uglifyify')
+            //.transform({
+            //    global: true
+            //}, 'uglifyify')
             .bundle();
 
-        let commonjs = requireBundle(browserify({debug: debug}), globs.scripts.commonjs)
+        let commonjs = requireBundle(browserify(config.browserify), globs.scripts.commonjs)
             .bundle();
 
-        let shim = requireBundle(browserify({debug: debug}), browserifyShimConfig)
+        let shim = requireBundle(browserify(config.browserify), browserifyShimConfig)
             .transform('browserify-shim')
             .bundle();
 
@@ -47,18 +46,18 @@ export default function (gulp, $, config) {
             .pipe(gulp.dest(`${dirs.dist}/js`))
     });
 
-    let bundler = browserifyIncremental(`${dirs.src}/js/app.js`, {
-        //let bundler = browserify(`${dirs.src}/js/app.js`, {
+
+    //let bundler = browserify(`${dirs.src}/js/app.js`, {
+    let bundler = browserifyIncremental(`${dirs.src}/js/app.js`, _.assign({}, config.browserify, {
         paths: ['./src/js/']
-        , debug: true
-    })
+    }))
         .external(_.values(browserifyShimConfig))
         .external(_.values(globs.scripts.commonjs))
         .external(dependencies)
         .transform('babelify')
-        .transform({
-            global: true
-        }, 'uglifyify')
+        //.transform({
+        //    global: true
+        //}, 'uglifyify')
         .transform('stringify', config.stringify);
 
     gulp.task('scripts:local', () => {

@@ -7,10 +7,9 @@
 
 let _ = require('lodash');
 
-let config = {
+let config = _.assign({
     dirs: require('./dirs')
     , globs: require('./globs')
-    , pluginOptions: require('./pluginOptions')
-};
+}, require('./pluginOptions'));
 
 module.exports = config;

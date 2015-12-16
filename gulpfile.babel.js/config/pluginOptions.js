@@ -5,8 +5,9 @@
 
 'use strict';
 
-let gutil = require('gulp-util');
+let _ = require('lodash');
 
 module.exports = {
-    stringify: ['.html']
+    browserify: {debug: true}
+    , stringify: ['.html']
 };

@@ -13,7 +13,7 @@
 var dirs = require('./dirs');
 
 var globs = {
-    src: [`${dirs.src}/**`]
+    src: [`${dirs.src}/**/*.{js,html}`]
     , index: [`${dirs.src}/index.html`]
     , assets: [`${dirs.src}/assets/**/*`]
     , scripts: {
@@ -29,7 +29,9 @@ var globs = {
     , styles: {
         local: [`${dirs.src}/css/**/*.{css,scss}`]
         , extension: []
-        , vendor: []
+        , vendor: [
+            //`node_modules/angular-material/angular-material.min.css`
+        ]
     }
     , dist: `${dirs.dist}/**/*`
 };
